@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input 
+          type="text"
+          id="usename" formControlName="username"
+          class="form-control">
+          <span class="help-block" *ngIf="!signupForm.get('username')?.valid && signupForm.get('username')?.touched"
+          >the name is invalid
+        </span>
+          <!-- <span *ngIf="signupForm.get('username').errors['required']">the name is invalid</span> -->
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+          type="email" formControlName="email"
+          id="email"
+          class="form-control">
+          <span class="help-block" 
+          *ngIf="!signupForm.get('email')?.valid && signupForm.get('email')?.touched">
+          please enter valid</span>
+        </div>
+        <div class="radio" *ngFor="let gender of genders" >
+          <label>
+            <input 
+            type="radio"
+            formControlName="gender"
+            [value]="gender">{{gender}}
+          </label>
+        </div>
+        <div formArrayName="hobbies">
+          <h4>your hobby</h4>
+          <button class="btn btn-default" (click)="onAddHobby()" type="button">ADD Hoby</button>
+          <div class="form-group"
+          *ngFor="let hobby of hobyFormArray.controls;let i = index"
+          >
+          <input type="text" class="form-control" [formControlName]="i">
+        </div>
+      </div>
+      <span class="help-block" *ngIf="!signupForm.valid && signupForm.touched">please enter valid</span>
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </form>    
+</div>
+</div>
+</div>
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div id="user-data" ngModelGroup="UserData" #userData="ngModelGroup">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input 
+            type="text" 
+            id="username" 
+            class="form-control"
+            ngModel name="username"
+            required>
+          </div>
+          <button class="btn btn-default" type="button"(click)="suggestUserName()" >Suggest an Username</button>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input 
+            type="email" 
+            id="email" 
+            class="form-control"
+            ngModel name="email" required email #email="ngModel">
+            <span class="help-block" *ngIf="!email.valid && email.touched" >please select valid value</span>
+          </div>
+        </div>
+          <p *ngIf="!userData.valid && userData.touched">user data is invalid</p>
+        <div class="form-group">
+          <label for="secret">Secret Questions</label>
+          <select id="secret" [ngModel]="defaultValue" name="secret" class="form-control">
+            <option value="pet">Your first Pet?</option>
+            <option value="teacher">Your first teacher?</option>
+          </select>
+          <textarea name="questionAnser" [(ngModel)]="answer" rows="3">
+          </textarea>
+          <p>your pet:{{answer}} </p>
+        </div>
+        <div class="radio" *ngFor="let g of gender">
+          <label>
+            <input type="radio" name="g" ngModel [value]="g"required>{{g}}
+          </label>
+        </div>
+        <button [disabled]="!f.valid " class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf="submitted">
+    <div class="col-xs-12">
+      <p>Username: {{user.username}} </p>
+      <p>Mail: {{user.email}} </p>
+      <p>Secret Question: your first {{user.secret}} </p>
+      <p>Answer: {{user.answer}} </p>
+      <p>Gender: {{user.g}} </p>
+    </div>
+  </div>
+</div> -->
